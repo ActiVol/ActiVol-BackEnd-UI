@@ -22,8 +22,6 @@ import 'virtual:svg-icons-register'
 import SvgIcon from '@/components/SvgIcon'
 import elementIcons from '@/components/SvgIcon/svgicon'
 
-// Iconify 图标
-import { Icon } from '@iconify/vue'
 
 // permission control
 import './permission' 
@@ -66,7 +64,6 @@ app.component('ImageUpload', ImageUpload)
 app.component('ImagePreview', ImagePreview)
 app.component('RightToolbar', RightToolbar)
 app.component('Editor', Editor)
-app.component('Icon', Icon)
 
 app.use(router)
 app.use(store)

@@ -1,7 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import path from 'path'
 import createVitePlugins from './vite/plugins'
-import tailwindcss from '@tailwindcss/vite'
 
 const viteAppConfig = require('./vite/plugins/vite.app.conf');
 
@@ -19,7 +18,6 @@ export default defineConfig(({ mode, command }) => {
     base: VITE_APP_ENV === 'production' ? '/' : '/',
     plugins: [
       ...createVitePlugins(env, command === 'build'),
-      tailwindcss()
     ],
     resolve: {
       // https://cn.vitejs.dev/config/#resolve-alias

@@ -41,11 +41,9 @@
     "vuedraggable": "4.1.0"
   },
   "devDependencies": {
-    "@iconify/vue": "^4.3.0",
     "@vitejs/plugin-vue": "5.0.5",
     "rollup-plugin-copy": "^3.5.0",
     "sass": "1.77.5",
-    "tailwindcss": "3",
     "unplugin-auto-import": "0.17.6",
     "unplugin-vue-setup-extend-plus": "1.0.1",
     "vite": "5.3.2",
