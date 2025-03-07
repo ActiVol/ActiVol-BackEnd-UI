@@ -7,7 +7,7 @@
                                     v-model="queryParams.userName"
                                     placeholder="请输入用户账号"
                                     clearable
-                                    @keyup.enter.native="handleQuery"
+                                    @keyup.enter="handleQuery"
                             />
                         </el-form-item>
                         <el-form-item label="用户邮箱" prop="email">
@@ -15,7 +15,7 @@
                                     v-model="queryParams.email"
                                     placeholder="请输入用户邮箱"
                                     clearable
-                                    @keyup.enter.native="handleQuery"
+                                    @keyup.enter="handleQuery"
                             />
                         </el-form-item>
                         <el-form-item label="活动名称" prop="activityName">
@@ -23,7 +23,7 @@
                                     v-model="queryParams.activityName"
                                     placeholder="请输入活动名称"
                                     clearable
-                                    @keyup.enter.native="handleQuery"
+                                    @keyup.enter="handleQuery"
                             />
                         </el-form-item>
                         <el-form-item label="服务领域" prop="serviceField">
@@ -60,8 +60,8 @@
                             </el-select>
                         </el-form-item>
             <el-form-item>
-                <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-                <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+                <el-button type="primary" icon="Search" size="mini" @click="handleQuery">搜索</el-button>
+                <el-button icon="Refresh" size="mini" @click="resetQuery">重置</el-button>
             </el-form-item>
         </el-form>
 
@@ -78,7 +78,7 @@
                 >删除
                 </el-button>
             </el-col>
-            <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+            <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
 
         <el-table v-loading="loading" :data="tempActivityList" @selection-change="handleSelectionChange">
@@ -93,27 +93,27 @@
                     <el-table-column label="活动地址" align="center" prop="address"/>
                     <el-table-column label="活动详情" align="center" prop="details"/>
                     <el-table-column label="活动图片" align="center" prop="activityPictures" width="100">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                             <image-preview :src="scope.row.activityPictures" :width="50" :height="50"/>
                         </template>
                     </el-table-column>
                     <el-table-column label="服务领域" align="center" prop="serviceField">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                                 <dict-tag :options="dict.type.service_field" :value="scope.row.serviceField"/>
                         </template>
                     </el-table-column>
                     <el-table-column label="服务对象" align="center" prop="serviceObject">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                                 <dict-tag :options="dict.type.service_object" :value="scope.row.serviceObject"/>
                         </template>
                     </el-table-column>
                     <el-table-column label="服务场所" align="center" prop="serviceLocation">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                                 <dict-tag :options="dict.type.service_location" :value="scope.row.serviceLocation"/>
                         </template>
                     </el-table-column>
                     <el-table-column label="开始时间" align="center" prop="startTime" width="180">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                             <span>{{ parseTime(scope.row.startTime, '{y}-{m}-{d}') }}</span>
                         </template>
                     </el-table-column>
@@ -122,12 +122,12 @@
                     <el-table-column label="举办者邮件" align="center" prop="leaderEmail"/>
                     <el-table-column label="对管理员的留言" align="center" prop="leaveMessage"/>
                     <el-table-column label="状态" align="center" prop="status">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                                 <dict-tag :options="dict.type.temp_activity_status" :value="scope.row.status"/>
                         </template>
                     </el-table-column>
             <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-                <template slot-scope="scope">
+                <template #default="scope">
 
                     <el-button
                             size="mini"
@@ -163,13 +163,13 @@
         <pagination
                 v-show="total>0"
                 :total="total"
-                :page.sync="queryParams.pageNum"
-                :limit.sync="queryParams.pageSize"
+                v-model:page="queryParams.pageNum"
+                v-model:limit="queryParams.pageSize"
                 @pagination="getList"
         />
 
         <!-- 添加或修改临时活动对话框 -->
-        <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+        <el-dialog :title="title" v-model="open" width="500px" append-to-body>
             <el-form ref="form" :model="form" :rules="rules" label-width="80px">
                                 <el-form-item label="用户账号" prop="userName">
                                     <el-input v-model="form.userName" placeholder="请输入用户账号"/>
@@ -262,10 +262,12 @@
                                     </el-radio-group>
                                 </el-form-item>
             </el-form>
-            <div slot="footer" class="dialog-footer">
+            <template #footer>
+              <div class="dialog-footer">
                 <el-button type="primary" @click="submitForm">确 定</el-button>
                 <el-button @click="cancel">取 消</el-button>
-            </div>
+              </div>
+            </template>
         </el-dialog>
     </div>
 </template>

@@ -1,17 +1,5 @@
 import request from '@/utils/request'
-// 修改语言
-export function changeLanguage(lang){
-  return request({
-    url: '/changeLanguage',
-    method: 'get',
-    headers: {
-      isToken: false,
-    },
-    params: {
-      lang: lang
-    }
-  })
-}
+
 // 登录方法
 export function login(username, password, code, uuid) {
   const data = {

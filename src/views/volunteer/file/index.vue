@@ -2,14 +2,14 @@
   <div class="app-container" ref="appContainer">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="图片名" prop="fileName">
-        <el-input v-model="queryParams.fileName" placeholder="请输入图片名" clearable @keyup.enter.native="handleQuery" />
+        <el-input v-model="queryParams.fileName" placeholder="请输入图片名" clearable @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="创建时间">
         <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="Search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button icon="Refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
       <el-form-item style="float:right">
         <div class="qiehuan" @click="handleActivity">
@@ -21,13 +21,13 @@
       <!-- Table view -->
       <el-table ref="table" v-if="!activity" v-loading="loading" :data="fileList">
         <el-table-column label="预览图" align="center" prop="url" width="100">
-          <template slot-scope="scope">
+          <template #default="scope">
             <image-preview :src="scope.row.url" :width="'50px'" :height="'50px'" />
           </template>
         </el-table-column>
         <el-table-column label="图片名" align="center" prop="fileName" />
         <el-table-column label="活动名称" align="center" prop="fileName">
-          <template slot-scope="scope">
+          <template #default="scope">
             <el-tag v-if="scope.row.activityName">
               {{ scope.row.activityName&&scope.row.activityName.length>10?scope.row.activityName.substring(0,10)+'...' : scope.row.activityName }}
             </el-tag>
@@ -35,17 +35,17 @@
         </el-table-column>
         <el-table-column label="图片类型" align="center" prop="type" />
         <el-table-column label="图片大小" align="center" prop="size">
-          <template slot-scope="scope">
+          <template #default="scope">
             {{ formatFileSize(scope.row.size) }}
           </template>
         </el-table-column>
         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
-          <template slot-scope="scope">
+          <template #default="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             size="mini"
             type="text"
@@ -74,8 +74,7 @@
     <pagination
       v-show="total>0"
       :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
+      v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" 
       @pagination="getList"
     />
   </div>

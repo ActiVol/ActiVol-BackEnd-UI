@@ -1,16 +1,13 @@
 <template>
-  <i-frame :src="url" />
+   <div>
+      <i-frame v-model:src="url"></i-frame>
+   </div>
 </template>
-<script>
-import iFrame from "@/components/iFrame/index";
+
+<script setup>
+import iFrame from '@/components/iFrame'
 import config from 'config';
-export default {
-  name: "Druid",
-  components: { iFrame },
-  data() {
-    return {
-      url: config.baseURL + "/druid/login.html"
-    };
-  },
-};
+import { ref } from 'vue';
+
+const url = ref(config.baseURL + '/druid/login.html');
 </script>

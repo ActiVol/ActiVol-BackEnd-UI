@@ -1,0 +1,5 @@
+{
+  baseURL:"https://api-volunteer.makesome.cool",
+  "timeout":"60000",
+  "defaultLange":"zh"
+}
